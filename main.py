@@ -1,9 +1,13 @@
-from player import Player
+import sys
+from logging import logMultiprocessing
+
+import pygame
+
+import constants
 from asteroid import Asteroid
 from asteroidfield import AsteroidField
-from logger import log_state
-from logging import logMultiprocessing
-import pygame, constants
+from logger import log_event, log_state
+from player import Player
 
 
 def main():
@@ -29,6 +33,11 @@ def main():
                 return
         screen.fill("black")
         updatable.update(dt)
+        for asteroid in asteroids:
+            if asteroid.collides_with(player):
+                log_event("player_hit")
+                print("Game over!")
+                sys.exit()
         for thing in drawable:
             thing.draw(screen)
         pygame.display.flip()
