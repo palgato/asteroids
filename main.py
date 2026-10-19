@@ -1,4 +1,6 @@
 from player import Player
+from asteroid import Asteroid
+from asteroidfield import AsteroidField
 from logger import log_state
 from logging import logMultiprocessing
 import pygame, constants
@@ -11,7 +13,11 @@ def main():
     dt = 0.0
     updatable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
+    asteroids = pygame.sprite.Group()
     Player.containers = (updatable, drawable)
+    Asteroid.containers = (asteroids, updatable, drawable)
+    AsteroidField.containers = (updatable)
+    asteroid_field = AsteroidField()
     player = Player(constants.SCREEN_WIDTH / 2, constants.SCREEN_HEIGHT / 2)
     print(f"Starting Asteroids with pygame version: {pygame.version.ver}")
     print(f"Screen width: {constants.SCREEN_WIDTH}")
